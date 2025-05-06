@@ -1,10 +1,10 @@
-Breast Cancer Classification Web App
-This project builds and compares machine learning models (Logistic Regression, SVM, Decision Tree, and Random Forest) for classifying breast cancer data using scikit-learn. The results are displayed in a Flask web app.
+Wine and Breast Cancer Classification Web App
+This project builds machine learning models to classify wine (using Logistic Regression, SVM, Decision Tree) and breast cancer data (adding Random Forest). Results are displayed in a Flask web app.
 Setup
 
 Clone the repository:
 git clone <repository-url>
-cd breast_cancer_ml
+cd wine_breast_cancer_ml
 
 
 Create a virtual environment and install dependencies:
@@ -17,16 +17,19 @@ Run the Flask app:
 python app.py
 
 
-Open your browser and navigate to http://localhost:5000.
+Open http://localhost:5000 in a browser.
 
 
 Project Structure
 
+logistic_regression_wine.py: Logistic Regression on wine dataset.
+svm_wine.py: SVM on wine dataset.
+decision_tree_wine.py: Decision Tree on wine dataset.
+breast_cancer_experiment.py: Experiment on breast cancer dataset.
 app.py: Flask web app.
-ml_models.py: Machine learning model training and evaluation.
-templates/index.html: HTML template for the web app.
-requirements.txt: Project dependencies.
-README.md: Project documentation.
+templates/index.html: HTML template.
+requirements.txt: Dependencies.
+README.md: Documentation.
 
 Deployment to GitHub
 
@@ -36,28 +39,39 @@ git add .
 git commit -m "Initial commit"
 
 
-Create a repository on GitHub and push the code:
+Push to GitHub:
 git remote add origin <repository-url>
 git push -u origin main
 
 
-Deploy to a hosting service (e.g., Render or Heroku) for a live web app:
+Deploy to Render:
 
-Update app.py to bind to 0.0.0.0 and use the PORT environment variable.
-Add a Procfile for the hosting service (e.g., web: gunicorn app:app).
+Connect your GitHub repository.
+Build command: pip install -r requirements.txt
+Start command: gunicorn app:app
+Get the public URL (e.g., https://your-app.onrender.com).
 
 
 
 Results
+Wine Dataset
 
-Logistic Regression: ~0.9474 accuracy
-SVM: ~0.9123 accuracy
-Decision Tree (random_state=42): ~0.9181 accuracy
-Decision Tree (random_state=None): ~0.9064 accuracy (varies)
-Random Forest: ~0.9591 accuracy
+Logistic Regression: ~0.9815
+SVM: ~0.7593
+Decision Tree (random_state=42): ~0.9630
+Decision Tree (random_state=None): ~0.9444 (varies)
+
+Breast Cancer Dataset
+
+Logistic Regression: ~0.9474
+SVM: ~0.9123
+Decision Tree (random_state=42): ~0.9181
+Decision Tree (random_state=None): ~0.9064 (varies)
+Random Forest: ~0.9591
 
 Observations
 
-Setting random_state=42 in the Decision Tree ensures reproducible results, while random_state=None introduces variability.
-Random Forest outperforms other models due to its ensemble nature.
+Random State Effect (Wine Dataset): Setting random_state=42 in Decision Tree ensures reproducibility, yielding 0.9630 accuracy. Without it, accuracy varies (0.9444), showing the model’s sensitivity to random splits.
+Wine Dataset: Logistic Regression performs best (0.9815), likely due to linear separability. SVM underperforms (0.7593) with default parameters.
+Breast Cancer Dataset: Random Forest excels (0.9591) due to its ensemble approach, followed by Logistic Regression (0.9474).
 
