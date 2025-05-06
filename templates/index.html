@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Breast Cancer Classification</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+    <div class="container mx-auto p-6">
+        <h1 class="text-3xl font-bold text-center mb-6">Breast Cancer Classification Models</h1>
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <h2 class="text-2xl font-semibold mb-4">Model Performance (Accuracy)</h2>
+            <table class="w-full table-auto">
+                <thead>
+                    <tr class="bg-gray-200">
+                        <th class="px-4 py-2">Model</th>
+                        <th class="px-4 py-2">Accuracy</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for model, accuracy in results.items() %}
+                    <tr>
+                        <td class="border px-4 py-2">{{ model }}</td>
+                        <td class="border px-4 py-2">{{ "%.4f" % accuracy }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow-md mt-6">
+            <h2 class="text-2xl font-semibold mb-4">Dataset Features</h2>
+            <ul class="list-disc pl-6">
+                {% for feature in feature_names %}
+                <li>{{ feature }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
