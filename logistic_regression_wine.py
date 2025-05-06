@@ -11,17 +11,10 @@ def train_logistic_regression_wine():
     feature_names = data.feature_names
     
     # Split data
-<<<<<<< HEAD
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=50)
     
     # Train model
     model = LogisticRegression(max_iter=10000, random_state=50)
-=======
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
-    
-    # Train model
-    model = LogisticRegression(max_iter=10000, random_state=42)
->>>>>>> 90d57f96f2429b621e516b5a8e4e8e7472efe4fe
     model.fit(X_train, y_train)
     
     # Evaluate
