@@ -3,34 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wine and Breast Cancer Classification</title>
+    <title>Wine and Breast Cancer Analysis</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 font-sans">
     <div class="container mx-auto p-6">
-        <h1 class="text-3xl font-bold text-center mb-6">Wine and Breast Cancer Classification</h1>
+        <h1 class="text-3xl font-bold text-center mb-6">Wine and Breast Cancer Analysis</h1>
         
-        <!-- Toggle Observations Button -->
+        <!-- Toggle Classification Observations -->
         <div class="mb-6 text-center">
-            <a href="?show_observations={{ 'true' if not show_observations else 'false' }}"
+            <a href="?show_classification_observations={{ 'true' if not show_classification_observations else 'false' }}&show_clustering_observations={{ 'true' if show_clustering_observations else 'false' }}"
+               class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2">
+                {{ 'Show Classification Observations' if not show_classification_observations else 'Hide Classification Observations' }}
+            </a>
+            <a href="?show_classification_observations={{ 'true' if show_classification_observations else 'false' }}&show_clustering_observations={{ 'true' if not show_clustering_observations else 'false' }}"
                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                {{ 'Show Observations' if not show_observations else 'Hide Observations' }}
+                {{ 'Show Clustering Observations' if not show_clustering_observations else 'Hide Clustering Observations' }}
             </a>
         </div>
         
-        <!-- Observations Section -->
-        {% if show_observations %}
+        <!-- Classification Observations -->
+        {% if show_classification_observations %}
         <div class="bg-white p-6 rounded-lg shadow-md mb-6">
-            <h2 class="text-2xl font-semibold mb-4">Observations and Analysis</h2>
+            <h2 class="text-2xl font-semibold mb-4">Classification Observations</h2>
             <div class="prose max-w-none">
-                {{ observations_html | safe }}
+                {{ classification_observations_html | safe }}
             </div>
         </div>
         {% endif %}
         
-        <!-- Wine Dataset Results -->
+        <!-- Clustering Observations -->
+        {% if show_clustering_observations %}
         <div class="bg-white p-6 rounded-lg shadow-md mb-6">
-            <h2 class="text-2xl font-semibold mb-4">Wine Dataset - Model Performance (Accuracy)</h2>
+            <h2 class="text-2xl font-semibold mb-4">Clustering Observations</h2>
+            <div class="prose max-w-none">
+                {{ clustering_observations_html | safe }}
+            </div>
+        </div>
+        {% endif %}
+        
+        <!-- Wine Dataset (Classification) -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+            <h2 class="text-2xl font-semibold mb-4">Wine Dataset - Classification Accuracy</h2>
             <table class="w-full table-auto">
                 <thead>
                     <tr class="bg-gray-200">
@@ -57,9 +71,9 @@
             </ul>
         </div>
         
-        <!-- Breast Cancer Dataset Results -->
+        <!-- Breast Cancer Dataset (Classification) -->
         <div class="bg-white p-6 rounded-lg shadow-md mb-6">
-            <h2 class="text-2xl font-semibold mb-4">Breast Cancer Dataset - Model Performance (Accuracy)</h2>
+            <h2 class="text-2xl font-semibold mb-4">Breast Cancer Dataset - Classification Accuracy</h2>
             <table class="w-full table-auto">
                 <thead>
                     <tr class="bg-gray-200">
@@ -68,10 +82,31 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for model, accuracy in bc_results.items() %}
+                    {% for model, accuracy in bc_classification_results.items() %}
                     <tr>
                         <td class="border px-4 py-2">{{ model }}</td>
                         <td class="border px-4 py-2">{{ "%.4f" % accuracy }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Breast Cancer Dataset (Clustering) -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+            <h2 class="text-2xl font-semibold mb-4">Breast Cancer Dataset - Clustering Silhouette Score</h2>
+            <table class="w-full table-auto">
+                <thead>
+                    <tr class="bg-gray-200">
+                        <th class="px-4 py-2">Model</th>
+                        <th class="px-4 py-2">Silhouette Score</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for model, score in bc_clustering_results.items() %}
+                    <tr>
+                        <td class="border px-4 py-2">{{ model }}</td>
+                        <td class="border px-4 py-2">{{ "%.4f" % score }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>

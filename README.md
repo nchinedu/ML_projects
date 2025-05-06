@@ -1,6 +1,6 @@
-# Wine and Breast Cancer Classification Web App
+# Wine and Breast Cancer Analysis Web App
 
-This project builds machine learning models to classify wine (using Logistic Regression, SVM, Decision Tree) and breast cancer data (adding Random Forest). Results and detailed observations are displayed in a Flask web app, with an option to toggle the visibility of observations.
+This project builds machine learning models for classification (wine and breast cancer datasets) and clustering (breast cancer dataset). Classification uses Logistic Regression, SVM, Decision Tree, and Random Forest. Clustering uses K-Means, Agglomerative Clustering, DBSCAN, and Gaussian Mixture Model (GMM). Results and observations are displayed in a Flask web app, with options to toggle classification and clustering observations.
 
 ## Setup
 
@@ -22,17 +22,22 @@ This project builds machine learning models to classify wine (using Logistic Reg
    python app.py
    ```
 
-4. Open `http://localhost:5000` in a browser. Click "Show Observations" to view detailed analysis.
+4. Open `http://localhost:5000`. Use "Show Classification Observations" or "Show Clustering Observations" to view detailed analyses.
 
 ## Project Structure
 
 - `logistic_regression_wine.py`: Logistic Regression on wine dataset.
 - `svm_wine.py`: SVM on wine dataset.
 - `decision_tree_wine.py`: Decision Tree on wine dataset.
-- `breast_cancer_experiment.py`: Experiment on breast cancer dataset.
+- `breast_cancer_experiment.py`: Classification on breast cancer dataset.
+- `kmeans_breast_cancer.py`: K-Means on breast cancer dataset.
+- `agglomerative_breast_cancer.py`: Agglomerative Clustering on breast cancer dataset.
+- `dbscan_breast_cancer.py`: DBSCAN on breast cancer dataset.
+- `gmm_breast_cancer.py`: GMM on breast cancer dataset.
 - `app.py`: Flask web app.
 - `templates/index.html`: HTML template.
-- `observations.md`: Detailed observations and answers.
+- `observations.md`: Classification observations.
+- `clustering_observations.md`: Clustering observations.
 - `requirements.txt`: Dependencies.
 - `README.md`: Documentation.
 
@@ -42,7 +47,7 @@ This project builds machine learning models to classify wine (using Logistic Reg
    ```bash
    git init
    git add .
-   git commit -m "Add observations and toggle feature"
+   git commit -m "Add clustering tasks and observations"
    ```
 
 2. Push to GitHub:
@@ -59,22 +64,30 @@ This project builds machine learning models to classify wine (using Logistic Reg
 
 ## Results
 
-### Wine Dataset
+### Wine Dataset (Classification)
 - Logistic Regression: ~0.9815
 - SVM: ~0.7593
 - Decision Tree (random_state=42): ~0.9630
 - Decision Tree (random_state=None): ~0.9444 (varies)
 
-### Breast Cancer Dataset
+### Breast Cancer Dataset (Classification)
 - Logistic Regression: ~0.9474
 - SVM: ~0.9123
 - Decision Tree (random_state=42): ~0.9181
 - Decision Tree (random_state=None): ~0.9064 (varies)
 - Random Forest: ~0.9591
 
+### Breast Cancer Dataset (Clustering)
+- K-Means (random_state=42): ~0.3512
+- K-Means (random_state=None): ~0.3512 (varies)
+- Agglomerative Clustering: ~0.3468
+- DBSCAN (eps=3.0, min_samples=5): ~-0.2000
+- Gaussian Mixture Model: ~0.3495
+
 ## Observations
 
-- **Random State Effect (Wine Dataset)**: Setting `random_state=42` in Decision Tree ensures reproducibility (~0.9630 accuracy). Without it, accuracy varies (~0.9444), showing sensitivity to random splits.
-- **Wine Dataset**: Logistic Regression performs best (~0.9815) due to linear separability. SVM underperforms (~0.7593) with default parameters.
-- **Breast Cancer Dataset**: Random Forest excels (~0.9591) due to its ensemble approach, followed by Logistic Regression (~0.9474).
-- **Web App Feature**: Viewers can toggle observations via a "Show Observations" button, displaying detailed analysis from `observations.md`.
+- **Classification (Wine)**: Logistic Regression excels (~0.9815) due to linear separability. SVM underperforms (~0.7593) with default parameters.
+- **Classification (Breast Cancer)**: Random Forest is best (~0.9591), followed by Logistic Regression (~0.9474).
+- **Clustering (Breast Cancer)**: K-Means (~0.3512) and Agglomerative Clustering (~0.3468) perform moderately; DBSCAN fails (~-0.2000) due to density issues. GMM (~0.3495) is comparable to K-Means.
+- **Random State (K-Means)**: Fixing `random_state=42` ensures reproducibility, with minimal score variation.
+- **Web App Features**: Toggle buttons allow viewers to show/hide classification and clustering observations from `observations.md` and `clustering_observations.md`.
