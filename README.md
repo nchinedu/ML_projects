@@ -1,6 +1,6 @@
 # Wine and Breast Cancer Analysis Web App
 
-This project implements machine learning models for classification (wine and breast cancer datasets), clustering (breast cancer dataset), and a web-based breast cancer prediction system using a Random Forest Classifier. The prediction system is integrated into the home page, using the top 10 features based on feature importance. A concise PDF report summarizes classification and prediction observations.
+This project implements machine learning models for classification (wine and breast cancer datasets), clustering (breast cancer dataset), and a web-based breast cancer prediction system using a Random Forest Classifier. The prediction system is integrated into the home page, using the top 5 features based on feature importance. A concise PDF report summarizes classification and prediction observations.
 
 ## Setup
 
@@ -48,8 +48,8 @@ This project implements machine learning models for classification (wine and bre
 - `models/`
   - `random_forest_model.joblib`: Saved Random Forest model.
   - `scaler.joblib`: Saved scaler.
-  - `top_feature_indices.joblib`: Indices of top features.
-  - `top_feature_names.joblib`: Names of top features.
+  - `top_feature_indices.joblib`: Indices of top 5 features.
+  - `top_feature_names.joblib`: Names of top 5 features.
 - `report.tex`: LaTeX source for PDF report.
 - `requirements.txt`: Dependencies.
 - `README.md`: Documentation.
@@ -60,7 +60,7 @@ This project implements machine learning models for classification (wine and bre
    ```bash
    git init
    git add .
-   git commit -m "Integrate prediction into home route, add feature importance, use PDF report"
+   git commit -m "Update prediction to use top 5 features"
    ```
 
 2. Push to GitHub:
@@ -99,11 +99,11 @@ This project implements machine learning models for classification (wine and bre
 
 ## Prediction System
 - **Model**: Random Forest Classifier (~0.9591 accuracy).
-- **Functionality**: Integrated into home page; users input top 10 features for prediction (Malignant/Benign) with confidence.
-- **Features**: Feature importance reduces inputs, responsive design, client-side validation.
+- **Functionality**: Integrated into home page; users input top 5 features for prediction (Malignant/Benign) with confidence.
+- **Features**: Feature importance reduces inputs to 5, responsive design, client-side validation.
 
 ## Observations
 - **Report**: Concise PDF (`static/report.pdf`) summarizes classification and prediction findings.
 - **Classification**: Random Forest excels for breast cancer (~0.9591); Logistic Regression for wine (~0.9815).
-- **Prediction**: Simplified input using top features; fast, reliable predictions.
+- **Prediction**: Simplified to 5 inputs using top features; fast, reliable predictions.
 - **Web App**: Prediction form in home page, toggleable PDF report, download option.
