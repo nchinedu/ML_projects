@@ -50,7 +50,7 @@ This report summarizes the development and performance of machine learning model
     \item \textbf{Random Forest}: Best performer (\textasciitilde0.9591), leveraging ensemble learning.
     \item \textbf{Logistic Regression}: Strong accuracy (\textasciitilde0.9474), suited to dataset’s structure.
     \item \textbf{SVM}: Moderate accuracy (\textasciitilde0.9123); needs optimization.
-    \item \textbf{Decision Tree}: Stable with \texttt{random\_state=42} (\textasciitilde0.9181); variable otherwise (\textasciitilde0.9064).
+    \item \textbf{Decision Tree}: Stable with \texttt{random_state=42} (\textasciitilde0.9181); variable otherwise (\textasciitilde0.9064).
 \end{itemize}
 
 \begin{table}[h]
@@ -74,7 +74,7 @@ This report summarizes the development and performance of machine learning model
 \subsection{System Overview}
 \begin{itemize}[noitemsep]
     \item \textbf{Model}: Random Forest Classifier (\textasciitilde0.9591 accuracy), integrated into Flask web app.
-    \item \textbf{Input}: Top 10 features selected via feature importance (e.g., worst perimeter, mean concave points).
+    \item \textbf{Input}: Top 5 features selected via feature importance (e.g., worst perimeter, mean concave points).
     \item \textbf{Output}: Predicts Malignant (0) or Benign (1) with confidence score.
 \end{itemize}
 
@@ -82,12 +82,12 @@ This report summarizes the development and performance of machine learning model
 \begin{itemize}[noitemsep]
     \item \textbf{Frontend}: Responsive form in home page, styled with Tailwind CSS, validated via JavaScript.
     \item \textbf{Backend}: Flask processes inputs, scales features, and serves predictions.
-    \item \textbf{Feature Importance}: Reduced input from 30 to 10 features, maintaining high accuracy.
+    \item \textbf{Feature Importance}: Reduced input from 30 to 5 features, balancing simplicity and accuracy.
 \end{itemize}
 
 \subsection{Performance and Limitations}
 \begin{itemize}[noitemsep]
-    \item \textbf{Performance}: Fast, reliable predictions; user-friendly interface.
+    \item \textbf{Performance}: Fast, reliable predictions; highly user-friendly with minimal inputs.
     \item \textbf{Limitations}: Requires accurate feature inputs; no guidance on feature ranges.
     \item \textbf{Future Work}: Add feature range validation, visualize feature importance.
 \end{itemize}
