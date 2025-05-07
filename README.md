@@ -1,6 +1,6 @@
 # Wine and Breast Cancer Analysis Web App
 
-This project builds machine learning models for classification (wine and breast cancer datasets) and clustering (breast cancer dataset). Classification uses Logistic Regression, SVM, Decision Tree, and Random Forest. Clustering uses K-Means, Agglomerative Clustering, DBSCAN, and Gaussian Mixture Model (GMM). Results and observations are displayed in a Flask web app, with options to toggle classification and clustering observations.
+This project implements machine learning models for classification (wine and breast cancer datasets), clustering (breast cancer dataset), and a web-based breast cancer prediction system using a Random Forest Classifier. The prediction system is integrated into the home page, using the top 10 features based on feature importance. A concise PDF report summarizes classification and prediction observations.
 
 ## Setup
 
@@ -17,12 +17,17 @@ This project builds machine learning models for classification (wine and breast 
    pip install -r requirements.txt
    ```
 
-3. Run the Flask app:
+3. Train and save the Random Forest model:
+   ```bash
+   python train_random_forest_model.py
+   ```
+
+4. Run the Flask app:
    ```bash
    python app.py
    ```
 
-4. Open `http://localhost:5000`. Use "Show Classification Observations" or "Show Clustering Observations" to view detailed analyses.
+5. Open `http://localhost:5000` to view analysis, use the prediction form, or toggle/download the PDF report.
 
 ## Project Structure
 
@@ -34,20 +39,28 @@ This project builds machine learning models for classification (wine and breast 
 - `agglomerative_breast_cancer.py`: Agglomerative Clustering on breast cancer dataset.
 - `dbscan_breast_cancer.py`: DBSCAN on breast cancer dataset.
 - `gmm_breast_cancer.py`: GMM on breast cancer dataset.
-- `app.py`: Flask web app.
-- `templates/index.html`: HTML template.
-- `observations.md`: Classification observations.
-- `clustering_observations.md`: Clustering observations.
+- `train_random_forest_model.py`: Train and save Random Forest model with feature importance.
+- `app.py`: Flask web app with prediction in home route.
+- `templates/index.html`: Main page with prediction form.
+- `static/`
+  - `script.js`: JavaScript for form validation.
+  - `report.pdf`: PDF report for observations.
+- `models/`
+  - `random_forest_model.joblib`: Saved Random Forest model.
+  - `scaler.joblib`: Saved scaler.
+  - `top_feature_indices.joblib`: Indices of top features.
+  - `top_feature_names.joblib`: Names of top features.
+- `report.tex`: LaTeX source for PDF report.
 - `requirements.txt`: Dependencies.
 - `README.md`: Documentation.
 
 ## Deployment to GitHub
 
-1. Initialize a Git repository:
+1. Initialize a Git repository (if not already done):
    ```bash
    git init
    git add .
-   git commit -m "Add clustering tasks and observations"
+   git commit -m "Integrate prediction into home route, add feature importance, use PDF report"
    ```
 
 2. Push to GitHub:
@@ -58,7 +71,7 @@ This project builds machine learning models for classification (wine and breast 
 
 3. Deploy to Render:
    - Connect your GitHub repository.
-   - Build command: `pip install -r requirements.txt`
+   - Build command: `pip install -r requirements.txt && python train_random_forest_model.py`
    - Start command: `gunicorn app:app`
    - Access the public URL (e.g., `https://your-app.onrender.com`).
 
@@ -84,10 +97,13 @@ This project builds machine learning models for classification (wine and breast 
 - DBSCAN (eps=3.0, min_samples=5): ~-0.2000
 - Gaussian Mixture Model: ~0.3495
 
-## Observations
+## Prediction System
+- **Model**: Random Forest Classifier (~0.9591 accuracy).
+- **Functionality**: Integrated into home page; users input top 10 features for prediction (Malignant/Benign) with confidence.
+- **Features**: Feature importance reduces inputs, responsive design, client-side validation.
 
-- **Classification (Wine)**: Logistic Regression excels (~0.9815) due to linear separability. SVM underperforms (~0.7593) with default parameters.
-- **Classification (Breast Cancer)**: Random Forest is best (~0.9591), followed by Logistic Regression (~0.9474).
-- **Clustering (Breast Cancer)**: K-Means (~0.3512) and Agglomerative Clustering (~0.3468) perform moderately; DBSCAN fails (~-0.2000) due to density issues. GMM (~0.3495) is comparable to K-Means.
-- **Random State (K-Means)**: Fixing `random_state=42` ensures reproducibility, with minimal score variation.
-- **Web App Features**: Toggle buttons allow viewers to show/hide classification and clustering observations from `observations.md` and `clustering_observations.md`.
+## Observations
+- **Report**: Concise PDF (`static/report.pdf`) summarizes classification and prediction findings.
+- **Classification**: Random Forest excels for breast cancer (~0.9591); Logistic Regression for wine (~0.9815).
+- **Prediction**: Simplified input using top features; fast, reliable predictions.
+- **Web App**: Prediction form in home page, toggleable PDF report, download option.

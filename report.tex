@@ -1,0 +1,96 @@
+% Setting up the document class
+\documentclass[a4paper,12pt]{article}
+
+% Including necessary packages
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{parskip}
+
+% Configuring page geometry
+\geometry{margin=1in}
+
+% Setting up hyperlinks
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue
+}
+
+% Setting font to DejaVu Sans
+\usepackage{dejavu}
+
+% Beginning the document
+\begin{document}
+
+% Creating the title
+\title{Breast Cancer Classification and Prediction System: Technical Report}
+\author{}
+\date{May 2025}
+\maketitle
+
+% Adding an abstract
+\begin{abstract}
+This report summarizes the development and performance of machine learning models for breast cancer classification and a web-based prediction system using the scikit-learn breast cancer dataset. It covers classification results, the Random Forest-based prediction system, and key observations.
+\end{abstract}
+
+% Section for Classification Observations
+\section{Classification Observations}
+\subsection{Wine Dataset}
+\begin{itemize}[noitemsep]
+    \item \textbf{Logistic Regression}: Highest accuracy (\textasciitilde0.9815) due to linear separability of features.
+    \item \textbf{SVM}: Lower accuracy (\textasciitilde0.7593) with default parameters; requires kernel tuning.
+    \item \textbf{Decision Tree}: Good performance with \texttt{random\_state=42} (\textasciitilde0.9630); variable without (\textasciitilde0.9444).
+\end{itemize}
+
+\subsection{Breast Cancer Dataset}
+\begin{itemize}[noitemsep]
+    \item \textbf{Random Forest}: Best performer (\textasciitilde0.9591), leveraging ensemble learning.
+    \item \textbf{Logistic Regression}: Strong accuracy (\textasciitilde0.9474), suited to dataset’s structure.
+    \item \textbf{SVM}: Moderate accuracy (\textasciitilde0.9123); needs optimization.
+    \item \textbf{Decision Tree}: Stable with \texttt{random\_state=42} (\textasciitilde0.9181); variable otherwise (\textasciitilde0.9064).
+\end{itemize}
+
+\begin{table}[h]
+    \centering
+    \caption{Classification Performance}
+    \begin{tabular}{lcc}
+        \toprule
+        \textbf{Model} & \textbf{Wine Accuracy} & \textbf{Breast Cancer Accuracy} \\
+        \midrule
+        Logistic Regression & 0.9815 & 0.9474 \\
+        SVM & 0.7593 & 0.9123 \\
+        Decision Tree (fixed) & 0.9630 & 0.9181 \\
+        Decision Tree (variable) & 0.9444 & 0.9064 \\
+        Random Forest & -- & 0.9591 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+% Section for Prediction System Observations
+\section{Prediction System Observations}
+\subsection{System Overview}
+\begin{itemize}[noitemsep]
+    \item \textbf{Model}: Random Forest Classifier (\textasciitilde0.9591 accuracy), integrated into Flask web app.
+    \item \textbf{Input}: Top 10 features selected via feature importance (e.g., worst perimeter, mean concave points).
+    \item \textbf{Output}: Predicts Malignant (0) or Benign (1) with confidence score.
+\end{itemize}
+
+\subsection{Design and Functionality}
+\begin{itemize}[noitemsep]
+    \item \textbf{Frontend}: Responsive form in home page, styled with Tailwind CSS, validated via JavaScript.
+    \item \textbf{Backend}: Flask processes inputs, scales features, and serves predictions.
+    \item \textbf{Feature Importance}: Reduced input from 30 to 10 features, maintaining high accuracy.
+\end{itemize}
+
+\subsection{Performance and Limitations}
+\begin{itemize}[noitemsep]
+    \item \textbf{Performance}: Fast, reliable predictions; user-friendly interface.
+    \item \textbf{Limitations}: Requires accurate feature inputs; no guidance on feature ranges.
+    \item \textbf{Future Work}: Add feature range validation, visualize feature importance.
+\end{itemize}
+
+% Ending the document
+\end{document}
