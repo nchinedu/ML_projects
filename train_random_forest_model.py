@@ -6,7 +6,7 @@ import joblib
 import numpy as np
 import os
 
-def train_and_save_model(n_top_features=10):
+def train_and_save_model(n_top_features=5):
     # Load dataset
     data = load_breast_cancer()
     X = data.data
@@ -42,4 +42,4 @@ def train_and_save_model(n_top_features=10):
 if __name__ == "__main__":
     scaler, model, top_features, top_indices = train_and_save_model()
     print("Random Forest model, scaler, and top features saved successfully.")
-    print("Top features:", top_features)
+    print("Top 5 features:", top_features)
